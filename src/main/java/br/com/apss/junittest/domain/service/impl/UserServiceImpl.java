@@ -1,5 +1,6 @@
 package br.com.apss.junittest.domain.service.impl;
 
+import br.com.apss.junittest.api.exceptions.ObjectNotFoundException;
 import br.com.apss.junittest.domain.model.User;
 import br.com.apss.junittest.domain.repository.UserRepository;
 import br.com.apss.junittest.domain.service.UserService;
@@ -17,6 +18,6 @@ public class UserServiceImpl implements UserService {
    @Override
    public User findById(Long id) {
       Optional<User> user = userRepository.findById(id);
-      return user.orElse(null);
+      return user.orElseThrow(()->new ObjectNotFoundException("Object not found."));
    }
 }

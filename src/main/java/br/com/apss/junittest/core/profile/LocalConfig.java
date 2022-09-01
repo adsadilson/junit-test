@@ -1,4 +1,4 @@
-package br.com.apss.junittest.core.config;
+package br.com.apss.junittest.core.profile;
 
 import br.com.apss.junittest.domain.model.User;
 import br.com.apss.junittest.domain.repository.UserRepository;
@@ -18,7 +18,7 @@ public class LocalConfig {
 
    @Bean
    public void startDB(){
-      User user1 = User.builder().name("adsadilson").email("adsdilson@yahoo.com.br").password("254").build();
+      User user1 = User.builder().name("Adsadilson").email("adsdilson@yahoo.com.br").password("254").build();
       User user2 = User.builder().name("Renato").email("renato@yahoo.com.br").password("58se254").build();
       userRepository.saveAll(List.of(user1,user2));
    }
