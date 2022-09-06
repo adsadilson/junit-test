@@ -1,6 +1,6 @@
 package br.com.apss.junittest.domain.repository;
 
-import br.com.apss.junittest.domain.model.User;
+import br.com.apss.junittest.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

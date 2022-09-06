@@ -1,4 +1,4 @@
-package br.com.apss.junittest.domain.model;
+package br.com.apss.junittest.domain.entity;
 
 import lombok.*;
 

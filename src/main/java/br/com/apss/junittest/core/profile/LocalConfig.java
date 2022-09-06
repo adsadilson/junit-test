@@ -1,6 +1,6 @@
 package br.com.apss.junittest.core.profile;
 
-import br.com.apss.junittest.domain.model.User;
+import br.com.apss.junittest.domain.entity.User;
 import br.com.apss.junittest.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
