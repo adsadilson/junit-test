@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ExcepitonHandler extends ResponseEntityExceptionHandler {
 
-   @ExceptionHandler(ObjectNotFoundException.class)
-   public ResponseEntity<StanderError> objectNotFound(ObjectNotFoundException ex,
+   @ExceptionHandler(EntityNotFoundException.class)
+   public ResponseEntity<StanderError> entityNotFoundException(EntityNotFoundException ex,
                                                                HttpServletRequest request) {
       ProblemType problemType = ProblemType.ERRO_NEGOCIO;
       StanderError error = StanderError.builder()
@@ -26,5 +26,33 @@ public class ExcepitonHandler extends ResponseEntityExceptionHandler {
               .path(problemType.getUri()+request.getRequestURI())
               .build();
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+   }
+
+   @ExceptionHandler(DataIntegrityViolationException.class)
+   public ResponseEntity<StanderError> dataIntegrityViolationException(DataIntegrityViolationException ex,
+                                                                       HttpServletRequest request) {
+      ProblemType problemType = ProblemType.ERRO_NEGOCIO;
+      StanderError error = StanderError.builder()
+              .timestamp(LocalDateTime.now())
+              .status(HttpStatus.BAD_REQUEST.value())
+              .error(problemType.getTitle())
+              .message(ex.getMessage())
+              .path(problemType.getUri()+request.getRequestURI())
+              .build();
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+   }
+
+   @ExceptionHandler(RecordInUseException.class)
+   public ResponseEntity<StanderError> recordInUseException(RecordInUseException ex,
+                                                                       HttpServletRequest request) {
+      ProblemType problemType = ProblemType.ERRO_NEGOCIO;
+      StanderError error = StanderError.builder()
+              .timestamp(LocalDateTime.now())
+              .status(HttpStatus.BAD_REQUEST.value())
+              .error(problemType.getTitle())
+              .message(ex.getMessage())
+              .path(problemType.getUri()+request.getRequestURI())
+              .build();
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
    }
 }
