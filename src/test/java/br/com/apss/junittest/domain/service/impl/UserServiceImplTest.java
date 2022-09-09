@@ -133,25 +133,25 @@ class UserServiceImplTest {
 
    @Test
    void whenDeleteThenSuccess() {
-      when(repository.findById(anyLong())).thenReturn(optionalUser);
       doNothing().when(repository).deleteById(anyLong());
       service.delete(ID);
       verify(repository, times(1)).deleteById(anyLong());
    }
 
    @Test
-   void whenDeleteThenDataIntegrityViolationException() {
-      when(repository.findById(anyLong())).thenThrow(new EntityNotFoundException("Object not found"));
+   void whenDeleteThenEntityNotFoundException() {
+      doThrow(new EntityNotFoundException(OBJECT_NOT_FOUND)).when(repository).deleteById(anyLong());
       try {
          service.delete(ID);
       } catch (Exception ex) {
          assertEquals(EntityNotFoundException.class, ex.getClass());
+         assertEquals(OBJECT_NOT_FOUND, ex.getMessage());
       }
    }
 
    @Test
    void whenDeleteThenRecordInUseException() {
-      when(repository.findById(anyLong())).thenThrow(new RecordInUseException(MSN_RECORD_IN_USER));
+      doThrow(new RecordInUseException(MSN_RECORD_IN_USER)).when(repository).deleteById(anyLong());
       try {
          service.delete(ID);
       } catch (Exception ex) {
