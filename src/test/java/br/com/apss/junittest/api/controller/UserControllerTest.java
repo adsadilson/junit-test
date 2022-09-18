@@ -3,6 +3,7 @@ package br.com.apss.junittest.api.controller;
 import br.com.apss.junittest.api.dto.UserDTO;
 import br.com.apss.junittest.domain.entity.User;
 import br.com.apss.junittest.domain.service.impl.UserServiceImpl;
+import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -10,6 +11,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class UserControllerTest {
@@ -24,10 +32,10 @@ class UserControllerTest {
    public static final String MAIL_ALREADY_EXISTS = "E-mail already exists!";
 
    @InjectMocks
-   private UserController controller;
+   private UserController userController;
 
    @Mock
-   private UserServiceImpl service;
+   private UserServiceImpl userService;
 
    @Mock
    private ModelMapper mapper;
@@ -42,11 +50,26 @@ class UserControllerTest {
    }
 
    @Test
-   void findById() {
+   void whenFindByIdThenReturnSuccess() {
+      when(userService.findById(anyLong())).thenReturn(user);
+      when(mapper.map(any(), any())).thenReturn(userDTO);
+
+      val response = userController.findById(ID);
+
+      assertNotNull(response);
+      assertNotNull(response.getBody());
+      assertEquals(ResponseEntity.class, response.getClass());
+      assertEquals(UserDTO.class, response.getBody().getClass());
+      assertEquals(ID, response.getBody().getId());
+      assertEquals(NAME, response.getBody().getName());
+      assertEquals(PASSWORD, response.getBody().getPassword());
+      assertEquals(EMAIL, response.getBody().getEmail());
+
    }
 
    @Test
-   void findAll() {
+   void whenFindAllThenReturnAlistOfUserDTO() {
+
    }
 
    @Test

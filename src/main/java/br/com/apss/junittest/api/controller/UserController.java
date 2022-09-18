@@ -29,8 +29,8 @@ public class UserController {
    }
 
    @GetMapping
-   public List<UserDTO> findAll() {
-      return service.findAll().stream().map(user -> mapper.map(user, UserDTO.class)).collect(Collectors.toList());
+   public ResponseEntity<List<UserDTO>> findAll() {
+      return ResponseEntity.ok().body(service.findAll().stream().map(user -> mapper.map(user, UserDTO.class)).collect(Collectors.toList()));
    }
 
    @PostMapping
