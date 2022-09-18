@@ -90,11 +90,24 @@ class UserControllerTest {
    }
 
    @Test
-   void create() {
+   void whenCreateThenRetornCreated() {
+      when(userService.create(any())).thenReturn(user);
+      ResponseEntity<UserDTO> response = userController.create(userDTO);
+
+      assertNotNull(response);
+      assertEquals(ResponseEntity.class, response.getClass());
+      assertEquals(HttpStatus.CREATED, response.getStatusCode());
+
    }
 
    @Test
-   void update() {
+   void whenUpdateThenRetornSuccess() {
+      when(userService.update(any())).thenReturn(user);
+      ResponseEntity<UserDTO> response = userController.update(userDTO, ID);
+
+      assertNotNull(response);
+      assertEquals(ResponseEntity.class, response.getClass());
+      assertEquals(HttpStatus.OK, response.getStatusCode());
    }
 
    @Test
