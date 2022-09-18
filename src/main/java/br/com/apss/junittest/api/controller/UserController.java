@@ -34,10 +34,9 @@ public class UserController {
    }
 
    @PostMapping
-   @ResponseStatus(HttpStatus.CREATED)
    public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
       val userSave = service.create(userDTO);
-      return ResponseEntity.ok(mapper.map(userSave, UserDTO.class));
+      return  new ResponseEntity<>(mapper.map(userSave, UserDTO.class),HttpStatus.CREATED);
    }
 
    @PutMapping(ID)
